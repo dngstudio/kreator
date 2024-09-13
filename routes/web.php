@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubscriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// Routes for authenticated users
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -34,17 +36,31 @@ Route::middleware('auth')->group(function () {
         Route::get('/all-accounts', [ProfileController::class, 'allaccounts'])->name('all-accounts');
         Route::get('/users/create', [ProfileController::class, 'create'])->name('users.create');
         Route::post('/users', [ProfileController::class, 'store'])->name('users.store');
-
-        // Admin can access the edit form of any user by their ID
         Route::get('/profile/{id}/edit', [ProfileController::class, 'editUser'])->name('profile.editUser');
         Route::patch('/profile/{id?}', [ProfileController::class, 'update'])->name('profile.update');
     });
+
+    Route::get('/subscribe/{creator}', [SubscriptionController::class, 'showSubscribePage'])->name('subscribe.page');
+    Route::post('/subscribe/{creator}', [SubscriptionController::class, 'subscribe'])->name('subscribe');
+
+    Route::get('/unsubscribe/{creator}', [SubscriptionController::class, 'showUnsubscribePage'])->name('unsubscribe.page');
+    Route::post('/unsubscribe/{creator}', [SubscriptionController::class, 'unsubscribe'])->name('unsubscribe');
 });
 
-Route::middleware(['auth', 'role:admin|creator'])->group(function () {
-    Route::resource('posts', PostController::class)->except(['show']);
+Route::resource('posts', PostController::class)->except(['show']);
+
+// Public route to view posts
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+
+// Routes to view creator's posts, accessible to subscribers
+Route::middleware(['auth', 'subscribed:creator_id'])->group(function () {
+    Route::get('/posts/{creator}', [PostController::class, 'index']);
 });
 
+Route::get('/profile/{id}', [ProfileController::class, 'showProfile'])
+    ->middleware('auth')
+    ->name('profile.show');
 
 
 require __DIR__.'/auth.php';
+

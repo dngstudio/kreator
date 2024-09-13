@@ -10,7 +10,7 @@
 
         <a href="{{ route('posts.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded mb-4">Add New Post</a>
 
-        @if($posts->isEmpty())
+        @if($posts && $posts->isEmpty())
             <p>You haven't created any posts yet.</p>
         @else
             <table class="min-w-full bg-white border border-gray-200">

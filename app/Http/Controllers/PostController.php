@@ -5,20 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 
 class PostController extends Controller
 {
-    public function __construct()
-    {
-        // Allow only admins and creators to access these methods
-        $this->middleware(['auth', 'role:admin|creator']);
-    }
-
     public function index()
     {
-        // Fetch posts created by the authenticated user
-        $posts = Auth::user()->posts;
-
+        $posts = Post::where('user_id', Auth::id())->get();
         return view('posts.index', compact('posts'));
     }
 
@@ -27,18 +20,58 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-    // Store a newly created post
-    public function store(PostRequest $request)
+    public function store(Request $request): RedirectResponse
     {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
         $post = new Post();
         $post->title = $request->input('title');
         $post->description = $request->input('description');
-        $post->featured_image = $request->file('featured_image')->store('images'); // Store the image
-        $post->user_id = Auth::id(); // Associate the post with the logged-in user
+        $post->user_id = Auth::id();
+
+        if ($request->hasFile('featured_image')) {
+            $imagePath = $request->file('featured_image')->store('featured_images', 'public');
+            $post->featured_image = basename($imagePath);
+        }
+
         $post->save();
 
         return redirect()->route('posts.index')->with('success', 'Post created successfully.');
     }
 
-    // Add more methods like edit, update, and destroy as needed
+    public function edit(Post $post)
+    {
+        return view('posts.edit', compact('post'));
+    }
+
+    public function update(Request $request, Post $post): RedirectResponse
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $post->title = $request->input('title');
+        $post->description = $request->input('description');
+
+        if ($request->hasFile('featured_image')) {
+            $imagePath = $request->file('featured_image')->store('featured_images', 'public');
+            $post->featured_image = basename($imagePath);
+        }
+
+        $post->save();
+
+        return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
+    }
+
+    public function destroy(Post $post): RedirectResponse
+    {
+        $post->delete();
+        return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
+    }
 }

@@ -22,7 +22,7 @@
 
                     <div class="mb-4">
                         <label for="featured_image" class="block text-sm font-medium text-gray-700">Featured Image</label>
-                        <input type="file" id="featured_image" name="featured_image" class="mt-1 block w-full" required>
+                        <input type="file" id="featured_image" name="featured_image" class="mt-1 block w-full" >
                     </div>
 
                     <div class="flex items-center gap-4">

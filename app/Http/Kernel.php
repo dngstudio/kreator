@@ -49,6 +49,7 @@ class Kernel extends HttpKernel
         // Other middleware...
         'isAdmin' => \App\Http\Middleware\IsAdmin::class,
         'role' => \App\Http\Middleware\RoleMiddleware::class,
+        'subscribed' => \App\Http\Middleware\CheckSubscription::class,
     ];
 
     /**

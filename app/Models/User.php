@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -43,5 +44,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    
+    public function subscribers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'subscriptions', 'creator_id', 'subscriber_id');
+    }
+
+    public function subscriptions(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'subscriptions', 'subscriber_id', 'creator_id');
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
     
 }

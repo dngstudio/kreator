@@ -117,4 +117,15 @@ class ProfileController extends Controller
         return redirect()->route('all-accounts')->with('success', 'New user created successfully.');
     }
 
+    public function showProfile($id)
+    {
+        $user = \App\Models\User::findOrFail($id);
+
+        $posts = $user->posts()->get(); // Assuming the posts relationship is defined on the User model
+        return view('profile.show', compact('user', 'posts'));
+
+    }
+
+
+
 }
