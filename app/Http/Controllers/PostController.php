@@ -74,4 +74,18 @@ class PostController extends Controller
         $post->delete();
         return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
     }
+
+    public function show(Post $post)
+    {
+        $user = Auth::user();
+        $creator = $post->user;
+
+        if ($user->isAn('subscriber') && $user->subscriptions->contains($creator)) {
+            return view('posts.show', compact('post'));
+        }
+
+        return redirect()->route('profile.show', $creator->id)->with('status', 'You need to subscribe to view this post.');
+    }
+
+    
 }

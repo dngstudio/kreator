@@ -45,12 +45,19 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/unsubscribe/{creator}', [SubscriptionController::class, 'showUnsubscribePage'])->name('unsubscribe.page');
     Route::post('/unsubscribe/{creator}', [SubscriptionController::class, 'unsubscribe'])->name('unsubscribe');
+
+    // Route to view all creators
+    Route::get('/creators', [ProfileController::class, 'allCreators'])->name('creators.index');
+
 });
 
 Route::resource('posts', PostController::class)->except(['show']);
 
 // Public route to view posts
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+
+// Route to view individual posts
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 
 // Routes to view creator's posts, accessible to subscribers
 Route::middleware(['auth', 'subscribed:creator_id'])->group(function () {

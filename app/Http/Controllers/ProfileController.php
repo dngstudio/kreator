@@ -126,6 +126,14 @@ class ProfileController extends Controller
 
     }
 
+    public function allCreators()
+    {
+        // Fetch all users with the role 'creator'
+        $creators = User::whereHas('roles', function($query) {
+            $query->where('name', 'creator');
+        })->get();
 
+        return view('creators.index', compact('creators'));
+    }
 
 }
