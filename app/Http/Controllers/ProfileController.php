@@ -38,25 +38,42 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request, $id = null): RedirectResponse
+    public function update(ProfileUpdateRequest $request)
     {
-        // Check if admin is editing another user's profile
-        if ($id && Auth::user()->isAdmin()) {
-            $user = User::findOrFail($id);
-        } else {
-            $user = $request->user();
+        $user = $request->user();
+
+        // Check if the profile image should be removed
+        if ($request->has('remove_profile_image') && $request->input('remove_profile_image') == '1') {
+            if ($user->profile_image) {
+                // Delete the image from storage
+                \Storage::delete('public/' . $user->profile_image);
+
+                // Set the profile image column to null in the database
+                $user->profile_image = null;
+            }
         }
 
-        $user->fill($request->validated());
+        // Handle the file upload if a new image was uploaded
+        if ($request->hasFile('profile_image')) {
+            $file = $request->file('profile_image');
+            $path = $file->store('profile_images', 'public');
+            $user->profile_image = $path;
+        }
 
+        // Save other user details
+        $user->fill($request->validated());
+        
+        // If email is changed, reset email verification
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
         }
 
         $user->save();
 
-        return Redirect::route('profile.edit', ['id' => $user->id])->with('status', 'profile-updated');
+        return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
+
+
 
     /**
      * Delete the user's account.
