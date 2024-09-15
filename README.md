@@ -1,66 +1,65 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a href="https://dngstudio.co" target="_blank"><img src="https://dngstudio.co/logo.png" width="400" alt="DNG Studio Logo"></a></p>
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+<a href="https://github.com/dngstudio/project/actions"><img src="https://github.com/dngstudio/project/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/dngstudio/project"><img src="https://img.shields.io/packagist/dt/dngstudio/project" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/dngstudio/project"><img src="https://img.shields.io/packagist/v/dngstudio/project" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/dngstudio/project"><img src="https://img.shields.io/packagist/l/dngstudio/project" alt="License"></a>
 </p>
 
-## About Laravel
+## About This Project
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This project, built by **[DNG Studio](https://dngstudio.co)** and led by Jelena Janić, is a modern, innovative platform designed to bring creators and subscribers together. We believe that seamless, elegant user experience is key to fostering engaging communities and providing intuitive solutions for creators and their audiences.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Key Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   User roles and permissions, powered by Laravel, for creators and subscribers.
+-   Easy-to-use subscription management with real-time notifications.
+-   Customizable profiles with image uploads and user details.
+-   Secure authentication and profile verification.
+-   Robust content management system, allowing creators to publish content for subscribers.
+-   Dynamic and responsive front-end, enhanced by Alpine.js and TailwindCSS.
 
-## Learning Laravel
+## Technologies Used
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+-   [Laravel](https://laravel.com/docs) - PHP Framework
+-   [Alpine.js](https://alpinejs.dev) - Lightweight front-end framework
+-   [TailwindCSS](https://tailwindcss.com) - Utility-first CSS framework
+-   [Bouncer](https://github.com/JosephSilber/bouncer) - Roles and permissions for Laravel
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Installation Instructions
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/dngstudio/project.git
+    ```
+2. Navigate into the project directory:
+    ```bash
+    cd project
+    ```
+3. Install dependencies:
+    ```bash
+    composer install
+    npm install
+    npm run dev
+    ```
+4. Run migrations and seeders:
+    ```bash
+    php artisan migrate --seed
+    ```
 
-## Laravel Sponsors
+## About DNG Studio
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+[DNG Studio](https://dngstudio.co) is a web development and consulting agency based in Belgrade, Serbia. We specialize in creating custom solutions for small to medium-sized businesses, bringing creativity, precision, and an uncompromising commitment to quality in every project.
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Interested in contributing? We're open to pull requests and suggestions. Please read our [contribution guide](https://dngstudio.co/contribute) to get started.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+
+---
+
+_“The best way to predict the future is to create it.” – Peter Drucker_
