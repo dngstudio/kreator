@@ -1,4 +1,4 @@
-<p align="center"><img src="https://github.com/dngstudio/kreator/blob/master/project_logo.jpg" width="400" alt="Kreator Logo"></p>
+<p align="center"><img src="https://github.com/dngstudio/kreator/blob/master/project_logo.jpg" width="200" alt="Kreator Logo"></p>
 
 <p align="center">
 <a href="https://github.com/dngstudio/project/actions"><img src="https://github.com/dngstudio/project/workflows/tests/badge.svg" alt="Build Status"></a>
