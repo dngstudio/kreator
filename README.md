@@ -1,4 +1,4 @@
-<p align="center"><a href="https://dngstudio.co" target="_blank"><img src="https://dngstudio.co/logo.png" width="400" alt="DNG Studio Logo"></a></p>
+<p align="center"><img src="https://github.com/dngstudio/kreator/blob/master/project_logo.jpg" width="400" alt="Kreator Logo"></p>
 
 <p align="center">
 <a href="https://github.com/dngstudio/project/actions"><img src="https://github.com/dngstudio/project/workflows/tests/badge.svg" alt="Build Status"></a>
@@ -9,7 +9,7 @@
 
 ## About This Project
 
-This project, built by **[DNG Studio](https://dngstudio.co)** and led by Jelena Janić, is a modern, innovative platform designed to bring creators and subscribers together. We believe that seamless, elegant user experience is key to fostering engaging communities and providing intuitive solutions for creators and their audiences.
+This project, built by **[DNG Studio](https://dngstudio.co)** , is a modern, innovative platform designed to bring creators and subscribers together. We believe that seamless, elegant user experience is key to fostering engaging communities and providing intuitive solutions for creators and their audiences.
 
 ### Key Features
 
