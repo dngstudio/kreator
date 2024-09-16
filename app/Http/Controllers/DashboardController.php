@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -11,13 +12,21 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
 
-        // Get subscriptions of the logged-in user
-        $subscriptions = $user->subscriptions;
+        // Check if user is a creator
+        if ($user->isA('creator')) {
+            // Fetch the creator's own posts (limit to 5)
+            $posts = Post::where('user_id', $user->id)->latest()->take(5)->get();
+            
+            // Fetch the creator's subscribers
+            $subscribers = $user->subscribers; // Assuming a `subscribers` relation exists
 
-        // Fetch posts from subscribed creators
-        $posts = Post::whereIn('user_id', $subscriptions->pluck('id'))->latest()->get();
+            return view('dashboard', compact('posts', 'subscribers'));
+        } else {
+            // Fetch posts from creators the user is subscribed to (limit to 5)
+            $subscriptions = $user->subscriptions;
+            $posts = Post::whereIn('user_id', $subscriptions->pluck('id'))->latest()->take(5)->get();
 
-        return view('dashboard', compact('posts'));
+            return view('dashboard', compact('posts'));
+        }
     }
 }
-

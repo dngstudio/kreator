@@ -12,16 +12,32 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::where('user_id', Auth::id())->get();
-        return view('posts.index', compact('posts'));
+        // Ensure only admin or creator can access the posts page
+        if (Auth::user()->isAn('admin') || Auth::user()->isA('creator')) {
+            return view('posts.index', compact('posts'));
+        }
+
+        return redirect()->route('dashboard')->with('error', 'You do not have permission to manage posts.');
+
     }
 
     public function create()
     {
-        return view('posts.create');
+        // Ensure only admin or creator can access the create post page
+        if (Auth::user()->isAn('admin') || Auth::user()->isA('creator')) {
+            return view('posts.create');
+        }
+
+        return redirect()->route('dashboard')->with('error', 'You do not have permission to create posts.');
     }
 
     public function store(Request $request): RedirectResponse
     {
+        // Ensure only admin or creator can store a new post
+        if (!(Auth::user()->isAn('admin') || Auth::user()->isA('creator'))) {
+            return redirect()->route('posts.index')->with('error', 'You do not have permission to create posts.');
+        }
+
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -86,6 +102,4 @@ class PostController extends Controller
 
         return redirect()->route('profile.show', $creator->id)->with('status', 'You need to subscribe to view this post.');
     }
-
-    
 }
