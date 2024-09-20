@@ -1,7 +1,11 @@
 <x-app-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <h1 class="text-2xl font-semibold mb-6">All Creators</h1> 
+            <x-slot name="header">
+                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    {{ __('Svi kreatori') }}
+                </h2>
+            </x-slot>
 
             @if($creators->isNotEmpty())
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -23,7 +27,7 @@
                     @endforeach
                 </div>
             @else
-                <p>No creators found.</p>
+                <p>Nema pronađenih kreatora.</p>
             @endif
         </div>
     </div>

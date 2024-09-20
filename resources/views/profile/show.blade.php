@@ -13,7 +13,7 @@
 
         <h1 class="text-2xl font-semibold mb-2">{{ $user->name }}'s Profile</h1>
     
-        <div x-data="{ count: {{ $user->subscriptions()->count() }} }" class="mb-6">
+        <div x-data="{ count: {{ $subscribers->count() }} }" class="mb-6">
             <span x-text="count === 1 || count % 10 === 1 ? count + ' pretplatnik' : count + ' pretplatnika'"></span>
         </div>
     
@@ -45,10 +45,10 @@
                         @foreach($posts as $post)
                             <div class="post mb-4 p-4 bg-white shadow rounded">
                                 <h3 class="text-lg font-bold">
-                                    @if(Auth::check() && Auth::user()->isAn('subscriber') && Auth::user()->subscriptions->contains($user))
+                                    @if(Auth::check() && (Auth::user()->isAn('admin') || (Auth::user()->isAn('subscriber') && Auth::user()->subscriptions->contains($user))))
                                         <a href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a>
                                     @else
-                                        {{ $post->title }} 
+                                        {{ $post->title }}
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
                                             <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"/>
                                         </svg>

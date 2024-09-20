@@ -20,7 +20,9 @@ class DashboardController extends Controller
             // Fetch the creator's subscribers
             $subscribers = $user->subscribers; // Assuming a `subscribers` relation exists
 
-            return view('dashboard', compact('posts', 'subscribers'));
+            $totalViews = $user->posts()->sum('views');
+
+            return view('dashboard', compact('posts', 'subscribers', 'totalViews'));
         } else {
             // Fetch posts from creators the user is subscribed to (limit to 5)
             $subscriptions = $user->subscriptions;

@@ -138,8 +138,10 @@ class ProfileController extends Controller
     {
         $user = \App\Models\User::findOrFail($id);
 
-        $posts = $user->posts()->get(); // Assuming the posts relationship is defined on the User model
-        return view('profile.show', compact('user', 'posts'));
+        $subscribers = $user->subscribers;
+
+        $posts = $user->posts()->get();
+        return view('profile.show', compact('user', 'posts', 'subscribers'));
 
     }
 
@@ -150,7 +152,13 @@ class ProfileController extends Controller
             $query->where('name', 'creator');
         })->get();
 
-        return view('creators.index', compact('creators'));
+        $user = auth()->user();
+
+        if ($user->isAn('subscriber') || $user->isAn('admin')) {
+            return view('creators.index', compact('creators')); 
+        }
+
+        return redirect()->route('dashboard')->with('error', 'Creators can\'t subscribe to other creators\' content.');
     }
 
 }

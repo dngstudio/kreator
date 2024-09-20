@@ -1,14 +1,23 @@
 <x-app-layout>
     <div class="container mx-auto py-8">
-        <h1 class="text-2xl font-semibold mb-6">Unsubscribe from {{ $creator->name }}</h1>
-        
-        <p>Are you sure you want to unsubscribe from {{ $creator->name }}'s content?</p>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            <x-slot name="header">
+                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    {{ __('Otkaži pretplatu') }}
+                </h2>
+            </x-slot>
 
-        <form action="{{ route('unsubscribe', $creator->id) }}" method="POST">
-            @csrf
-            <x-primary-button>{{ __('Confirm Unsubscription') }}</x-primary-button>
-        </form>
+            <h1 class="text-2xl font-semibold mb-6">Otkaži pretplatu na {{ $creator->name }}</h1>
+            
+            <p>Da li sigurno želite da otkažete pretplatu sa sadržaja korisnika {{ $creator->name }}?</p>
 
-        <a href="{{ route('unsubscribe.page', $creator->id) }}" class="text-blue-500 mt-4 block">Cancel</a>
+            <form action="{{ route('unsubscribe', $creator->id) }}" method="POST">
+                @csrf
+                <x-primary-button>{{ __('Potvrdi otkazivanje pretplate') }}</x-primary-button>
+            </form>
+
+            <a href="{{ route('dashboard', $creator->id) }}" class="text-blue-500 mt-4 block">Otkaži</a>
+        </div>
     </div>
 </x-app-layout>
+ 
