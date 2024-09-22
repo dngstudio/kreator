@@ -168,5 +168,29 @@ class PostController extends Controller
     }
 
 
+    public function comments(Post $post)
+    {
+        try {
+            // Fetch comments with the related user
+            $comments = $post->comments()->with('user')->latest()->get();
+
+            // Set 'is_author' flag if the comment poster is the post author
+            $comments->transform(function ($comment) use ($post) {
+                $comment->is_author = $comment->user_id === $post->user_id;
+                return $comment;
+            });
+
+            return response()->json([
+                'comments' => $comments,
+            ]);
+        } catch (\Exception $e) {
+            // Return error response if something goes wrong
+            return response()->json([
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+
 
 }

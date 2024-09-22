@@ -3,9 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SubscriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +69,13 @@ Route::middleware(['auth', 'subscribed:creator_id'])->group(function () {
 Route::get('/profile/{id}', [ProfileController::class, 'showProfile'])
     ->middleware('auth')
     ->name('profile.show');
+
+
+    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->middleware('auth');
+    Route::get('/posts/{post}/comments', [PostController::class, 'comments']);
+    
+    Route::delete('/posts/{post}/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+
 
 
 require __DIR__.'/auth.php';

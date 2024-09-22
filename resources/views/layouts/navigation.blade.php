@@ -15,9 +15,17 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Kontrolna tabla') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('creators.index')" :active="request()->routeIs('creators.index')">
-                        {{ __('Kreatori') }}
-                    </x-nav-link>
+                    @if(Auth::check() && (Auth::user()->isA('subscriber') || Auth::user()->isA('admin')))
+                        <x-nav-link :href="route('creators.index')" :active="request()->routeIs('creators.index')">
+                            {{ __('Kreatori') }}
+                        </x-nav-link>
+                    @endif
+                    @if(Auth::check() && (Auth::user()->isA('creator') || Auth::user()->isA('admin')))
+                        <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
+                            {{ __('Sve objave') }}
+                        </x-nav-link>
+                    @endif
+
                 </div>
             </div>
 
